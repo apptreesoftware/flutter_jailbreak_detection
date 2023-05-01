@@ -44,6 +44,8 @@ class FlutterJailbreakDetectionPlugin : FlutterPlugin, MethodCallHandler {
             result.success(rootBeer.isRooted)
         } else if (call.method.equals("developerMode")) {
             result.success(isDevMode())
+        } else if (call.method.equals("reverseEngineered")) {
+            result.success(false)
         } else {
             result.notImplemented()
         }

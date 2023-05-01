@@ -15,4 +15,10 @@ class FlutterJailbreakDetection {
     bool? developerMode = await _channel.invokeMethod<bool>('developerMode');
     return developerMode ?? true;
   }
+
+  static Future<bool> get reverseEngineered async {
+    bool? reverseEngineered =
+        await _channel.invokeMethod<bool>('reverseEngineered');
+    return reverseEngineered ?? true;
+  }
 }

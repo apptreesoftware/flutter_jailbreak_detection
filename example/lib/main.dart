@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool? _jailbroken;
   bool? _developerMode;
+  bool? _reverseEngineered;
 
   @override
   void initState() {
@@ -25,13 +26,16 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     bool jailbroken;
     bool developerMode;
+    bool reverseEngineered;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       jailbroken = await FlutterJailbreakDetection.jailbroken;
       developerMode = await FlutterJailbreakDetection.developerMode;
+      reverseEngineered = await FlutterJailbreakDetection.reverseEngineered;
     } on PlatformException {
       jailbroken = true;
       developerMode = true;
+      reverseEngineered = true;
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -42,6 +46,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _jailbroken = jailbroken;
       _developerMode = developerMode;
+      _reverseEngineered = reverseEngineered;
     });
   }
 
@@ -52,10 +57,16 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Jailbroken plugin example app'),
         ),
-        body:  Center(
-          child: Column( mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Text('Jailbroken: ${_jailbroken == null ? "Unknown" : _jailbroken! ? "YES" : "NO"}'),
-            Text('Developer mode: ${_developerMode == null ? "Unknown" : _developerMode! ? "YES" : "NO"}')
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                  'Jailbroken: ${_jailbroken == null ? "Unknown" : _jailbroken! ? "YES" : "NO"}'),
+              Text(
+                  'Developer mode: ${_developerMode == null ? "Unknown" : _developerMode! ? "YES" : "NO"}'),
+              Text(
+                  'Reverse engineered: ${_reverseEngineered == null ? "Unknown" : _reverseEngineered! ? "YES" : "NO"}')
             ],
           ),
         ),
